@@ -74,7 +74,6 @@
 import type { FormInstance } from 'vant'
 
 import { LoginStateEnum, useFormRules, useLoginState } from './useLogin'
-import {userRegistration} from "@/api/login";
 import {userRegistrationApi} from "@/api/modules/login";
 
 const { handleBackLogin, getLoginState } = useLoginState()

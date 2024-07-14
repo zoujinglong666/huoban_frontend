@@ -208,10 +208,10 @@ const loadData = () => {
       <Loading></Loading>
     </div>
     <slot></slot>
-    <div class="pull-up">
-      <div ref="moreRef" class="pull-up_loading"></div>
-      <div ref="nothing" class="pull-up_nothing" v-if="!hasMore">没有更多了</div>
-    </div>
+<!--    <div class="pull-up">-->
+<!--      <div ref="moreRef" class="pull-up_loading"></div>-->
+<!--      <div ref="nothing" class="pull-up_nothing" v-if="!hasMore">没有更多了</div>-->
+<!--    </div>-->
   </div>
 </template>
 

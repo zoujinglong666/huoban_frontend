@@ -9,8 +9,8 @@
       <van-field
         v-model="formValue.username"
         class="mt-4"
-        name="nickname"
-        placeholder="请输入昵称（2-12字）"
+        name="username"
+        :placeholder="customPlaceholder"
         :rules="[
           {
             validator: validateNickname(),
@@ -37,8 +37,14 @@ import router from "@/router";
 
 const userStore = useUserStore ()
 
-const {nickname} = userStore.getUserInfo
+const {username} = userStore.getUserInfo
 const formRef = ref<FormInstance> ()
+const customPlaceholder = computed ( () => {
+  if ( username ) {
+    return username
+  }
+  return "请输入昵称（2-12字）"
+} )
 
 const formValue = reactive ( {
   username: '',
@@ -66,15 +72,14 @@ function handleNickname() {
           ...userStore.getUserInfo,
           username: formValue.username
         }
-
-        console.log (params)
-
         const res = await updateUserInfo ( params )
-
-        if ( res.code === ResultEnum.SUCCESS ) {
-          userStore.setUserInfo(params)
-          router.go(-1)
-          showSuccessToast ( "更新成功" )
+        if ( res.code ==ResultEnum.SUCCESS ) {
+          userStore.setUserInfo ( params )
+          router.go ( -1 )
+          showSuccessToast ( {
+            duration: 300,
+              message: '更新成功'
+          } )
         }
 
 
@@ -89,7 +94,7 @@ function handleNickname() {
 }
 
 onMounted ( () => {
-  formValue.nickname = nickname
+  formValue.username = username
 } )
 </script>
 

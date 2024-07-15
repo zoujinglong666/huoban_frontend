@@ -23,13 +23,21 @@ const handleJoinTeam = async (team: any) => {
   if ( !teamId ) {
     return
   }
-  const params = {
-    teamId,
+
+  if ( props.team.status == 0 ) {
+    const params = {
+      teamId,
+    }
+    const res = await joinTeamApi ( params )
+    if ( res.code == ResultEnum.SUCCESS ) {
+      showToast ( '加入队伍成功' )
+      emit ( 'reload' )
+    }
   }
-  const res = await joinTeamApi ( params )
-  if ( res.code == ResultEnum.SUCCESS ) {
-    showToast ( '加入队伍成功' )
-    emit ( 'reload' )
+  if ( props.team.status == 2 ) {
+    show.value = true;
+    currentTeamId.value = teamId;
+
   }
 }
 const handleQuitTeam = async (team: any) => {
@@ -75,7 +83,32 @@ const isMySelfCreateTeam = computed ( () => {
     return item.createUser.id === currenUserId.value
   }
 } )
+const show = ref(false);
+const password = ref('');
+const currentTeamId = ref('');
 
+const handleJoinConfirm = async () => {
+  if ( !currentTeamId.value || !password.value ) {
+    return
+  }
+  const params = {
+    teamId:currentTeamId.value,
+    password: password.value
+  }
+  const res = await joinTeamApi ( params )
+  if ( res.code == ResultEnum.SUCCESS ) {
+    showToast ( '加入队伍成功' )
+    emit ( 'reload' )
+    show.value = false;
+    currentTeamId.value = '';
+    password.value = '';
+  }else {
+    show.value = true;
+    currentTeamId.value = '';
+    password.value = '';
+    showToast ( '密码错误' )
+  }
+}
 
 </script>
 
@@ -90,7 +123,6 @@ const isMySelfCreateTeam = computed ( () => {
         src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
       />
     </div>
-
     <div class="user-card_right" >
       <div>
         <div>{{ props.team.name }}</div>
@@ -112,6 +144,10 @@ const isMySelfCreateTeam = computed ( () => {
         </van-button>
       </van-space>
     </div>
+
+    <van-dialog v-model:show="show" title="请输入队伍密码" show-cancel-button @confirm="handleJoinConfirm">
+      <van-field placeholder="请输入密码" type="password" v-model="password"></van-field>
+    </van-dialog>
 
 
   </div>

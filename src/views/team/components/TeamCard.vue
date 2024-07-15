@@ -100,14 +100,17 @@ const handleJoinConfirm = async () => {
     showToast ( '加入队伍成功' )
     emit ( 'reload' )
     show.value = false;
-    currentTeamId.value = '';
-    password.value = '';
+    reset()
   }else {
-    show.value = true;
-    currentTeamId.value = '';
-    password.value = '';
+    reset()
     showToast ( '密码错误' )
   }
+}
+
+
+const reset=()=>{
+  currentTeamId.value = '';
+  password.value = '';
 }
 
 </script>
@@ -145,7 +148,7 @@ const handleJoinConfirm = async () => {
       </van-space>
     </div>
 
-    <van-dialog v-model:show="show" title="请输入队伍密码" show-cancel-button @confirm="handleJoinConfirm">
+    <van-dialog v-model:show="show" title="请输入队伍密码" show-cancel-button @confirm="handleJoinConfirm" @cancel="reset">
       <van-field placeholder="请输入密码" type="password" v-model="password"></van-field>
     </van-dialog>
 

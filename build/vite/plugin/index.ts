@@ -5,7 +5,6 @@ import vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { configHtmlPlugin } from './html'
-import { configMockPlugin } from './mock'
 import { configCompressPlugin } from './compress'
 import { configVisualizerConfig } from './visualizer'
 import { configSvgIconsPlugin } from './svgSprite'
@@ -59,9 +58,6 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean, prodMock: 
 
   // rollup-plugin-visualizer
   vitePlugins.push(configVisualizerConfig())
-
-  // vite-plugin-mock
-  VITE_USE_MOCK && vitePlugins.push(configMockPlugin(isBuild, prodMock))
 
   // vite-plugin-svg-icons
   vitePlugins.push(configSvgIconsPlugin(isBuild))

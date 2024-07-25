@@ -202,7 +202,7 @@ const loadData = () => {
 <template>
   <div class="data-scroll-list" ref="scrollRef">
     <div class="pull-down_text" v-if="isPullingDown && distanceY > 5">
-      {{ distanceY > 80 ? '松开刷新' : ' 正在下拉刷新...' }}
+      {{ distanceY > 10 ? '松开刷新' : ' 正在下拉刷新...' }}
     </div>
     <div class="pull-down_loading" v-if="isRefreshing">
       <Loading></Loading>

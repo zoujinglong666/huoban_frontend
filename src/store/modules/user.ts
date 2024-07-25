@@ -66,7 +66,7 @@ export const useUserStore = defineStore ( {
       try {
         const response = await loginApi ( params )
         const {data, code} = response
-        if ( code === ResultEnum.SUCCESS ) {
+        if ( code === ResultEnum.SUCCESS && data ) {
 
           this.setUserInfo ( {
             ...data,
@@ -100,7 +100,6 @@ export const useUserStore = defineStore ( {
     async Logout() {
 
       await logoutApi ()
-
       this.setToken ( undefined )
       this.setUserInfo ( null )
       Storage.remove ( ACCESS_TOKEN )

@@ -16,7 +16,6 @@
       />
     </scroll-list>
 
-    <SelectRowCol :row="8" :col="4"></SelectRowCol>
 
   </div>
 </template>
@@ -28,7 +27,6 @@ import {recommendedUsers} from "@/api/modules/login";
 import UserCard from "@/views/search/components/UserCard.vue";
 import {usePlusStorage} from "@/hooks/usePlusStorage";
 import useScrollCache from "@/hooks/useScrollCache";
-import SelectRowCol from "@/components/SelectRowCol/index.vue";
 defineOptions ( {
   name: 'DashboardPage',
 } )

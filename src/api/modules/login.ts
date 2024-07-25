@@ -39,5 +39,7 @@ export const searchTags = (params) => {
 export const recommendedUsers = (params?: {}) => {
   return http.get ( `/user/recommended`, params );
 };
-
+export const resetPassword = (params?: {}) => {
+  return http.post ( `/user/reset/password`, params );
+};
 

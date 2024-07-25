@@ -90,11 +90,11 @@ function handleSubmit() {
       try {
         loading.value = true
         showLoadingToast('登录中...')
-        const { code, message: msg } = await userStore.Login({
+        const { code, message: msg, data } = await userStore.Login({
           userAccount: formData.username,
           userPassword: formData.password,
         })
-        if (code === ResultEnum.SUCCESS) {
+        if (code == ResultEnum.SUCCESS&&data) {
           const toPath = decodeURIComponent((route.query?.redirect || '/') as string)
           showToast({
             message: '登录成功',

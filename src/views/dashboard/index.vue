@@ -11,11 +11,11 @@
     </div>
 
 
-    <scroll-list @refresh="getRecommendList" >
+    <DataList v-model:list="recommendedUserList" :api="recommendedUsers"
+              :list-style="{padding:  '0 10px'}">
       <user-card :user-info="{...item,index}" v-for="(item,index) in recommendedUserList" :key="item.id"
       />
-    </scroll-list>
-
+    </DataList>
 
   </div>
 </template>
@@ -46,25 +46,24 @@ const handelClick = () => {
   router.push ( "/search/index" )
 }
 const recommendedUserList = ref ( [] )
-const getRecommendList = async () => {
-  const params = {
-    pageSize: 10,
-    pageNum: 1
-  }
-
-  const res = await recommendedUsers ( params )
-  recommendedUserList.value = res.data.records || []
-
-  setTimeout ( () => {
-    refreshing.value = false
-  }, 60000 )
-}
-
-const {setItem, getItem} = usePlusStorage ()
-
-onMounted ( () => {
-  getRecommendList ()
-} )
+// const getRecommendList = async () => {
+//   const params = {
+//     pageSize: 10,
+//     pageNum: 1
+//   }
+//
+//   const res = await recommendedUsers ( params )
+//   recommendedUserList.value = res.data.records || []
+//
+//   setTimeout ( () => {
+//     refreshing.value = false
+//   }, 60000 )
+// }
+//
+//
+// onMounted ( () => {
+//   getRecommendList ()
+// } )
 
 
 </script>

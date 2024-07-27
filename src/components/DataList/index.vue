@@ -67,8 +67,8 @@ interface DataListPropsType {
 }
 
 const props = withDefaults ( defineProps<DataListPropsType> (), {
-  finishedText: "no.more",
-  successText: "refresh.success",
+  finishedText: "没有更多啦",
+  successText: "刷新成功",
   rowKey: "id",
   pageSize: 10,
   offset: 100,
@@ -105,12 +105,13 @@ const getData = async (pageNum: number) => {
       ...(props.params || {}),
 
     };
-    const {msg, httpStatus} = await api ( params );
-    if ( httpStatus === ResultEnum.SUCCESS ) {
-      pages.value = Number ( msg.pages );
-      total.value = Number ( msg.total );
-      const pageData = msg.records as any[];
-      if ( pages.value === 1 || msg.total <= props.pageSize ) {
+    const {data, code} = await api ( params );
+    if ( code === ResultEnum.SUCCESS ) {
+      pages.value = Number ( data.pages );
+      total.value = Number ( data.total );
+      const pageData = data.records as any[];
+      console.log ( pageData , "pageData" )
+      if ( pages.value === 1 || data.total <= props.pageSize ) {
         finished.value = true
         list.value = pageData || []
         emits ( 'update:list', pageData )
@@ -164,7 +165,7 @@ onUnmounted ( () => {
                       :pullDistance="props.offset"
                       :disable-refresh="refreshDisabled"
     >
-      <div class="list-warp" ref="listRef">
+      <div  ref="listRef">
         <van-list
           v-bind="$attrs"
           v-model:loading="loading"
@@ -183,13 +184,7 @@ onUnmounted ( () => {
 </template>
 
 <style scoped lang="less">
-.list-warp {
-  height: calc(100vh - 40px);
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  -ms-overflow-scrolling: touch;
 
-}
 
 
 </style>

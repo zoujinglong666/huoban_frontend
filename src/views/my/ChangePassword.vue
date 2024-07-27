@@ -4,6 +4,7 @@
     <van-cell-group inset>
       <van-field
         v-model="passwordRequest.oldPassword"
+        type="password"
         label="旧密码"
         placeholder="旧密码"
         :rules="[{ required: true, message: '请填写旧密码' }]"

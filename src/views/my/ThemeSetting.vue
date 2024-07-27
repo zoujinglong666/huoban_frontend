@@ -1,15 +1,6 @@
 <template>
   <div>
     <NavBar />
-    <van-divider>主题模式</van-divider>
-    <van-cell-group inset>
-      <van-cell center title="暗黑模式">
-        <template #right-icon>
-          <van-switch v-model="getDarkMode" size="22" />
-        </template>
-      </van-cell>
-    </van-cell-group>
-
     <van-divider>系统主题色</van-divider>
     <div flex="~" justify="center">
       <div grid="~ cols-8 gap-2">
@@ -32,7 +23,6 @@
         </span>
       </div>
     </div>
-
     <van-divider>页面切换动画</van-divider>
     <van-cell-group inset>
       <van-cell center title="开启动画">

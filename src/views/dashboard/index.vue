@@ -1,7 +1,6 @@
 <template>
   <div class="h-screen flex flex-col" ref="scrollRef" @scroll="onPageScroll">
-
-    <div>
+    <div position="sticky" top="0" class="bg-white z-10">
       <van-search
         v-model="value"
         placeholder="请输入搜索关键词"
@@ -9,14 +8,11 @@
         @click="handelClick"
       />
     </div>
-
-
-    <DataList v-model:list="recommendedUserList" :api="recommendedUsers"
+    <DataList v-model:list="recommendedUserList" :api="recommendedUsers" @scroll="onScrollBody"
               :list-style="{padding:  '0 10px'}">
       <user-card :user-info="{...item,index}" v-for="(item,index) in recommendedUserList" :key="item.id"
       />
     </DataList>
-
   </div>
 </template>
 
@@ -25,7 +21,6 @@ import {useGlobSetting} from '@/hooks/setting'
 import router from "@/router";
 import {recommendedUsers} from "@/api/modules/login";
 import UserCard from "@/views/search/components/UserCard.vue";
-import {usePlusStorage} from "@/hooks/usePlusStorage";
 import useScrollCache from "@/hooks/useScrollCache";
 defineOptions ( {
   name: 'DashboardPage',
@@ -35,7 +30,6 @@ const globSetting = useGlobSetting ()
 
 const {title} = globSetting
 const value = ref ( '' )
-const refreshing = ref ( false )
 
 const {onScrollBody, scrollRef} = useScrollCache ();
 //页面滚动
@@ -46,24 +40,6 @@ const handelClick = () => {
   router.push ( "/search/index" )
 }
 const recommendedUserList = ref ( [] )
-// const getRecommendList = async () => {
-//   const params = {
-//     pageSize: 10,
-//     pageNum: 1
-//   }
-//
-//   const res = await recommendedUsers ( params )
-//   recommendedUserList.value = res.data.records || []
-//
-//   setTimeout ( () => {
-//     refreshing.value = false
-//   }, 60000 )
-// }
-//
-//
-// onMounted ( () => {
-//   getRecommendList ()
-// } )
 
 
 </script>

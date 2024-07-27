@@ -1,18 +1,17 @@
 <template>
 
-  <div style="height: 100%;display: flex;flex-direction: column">
-    <div  style="z-index: 9999;position:fixed;top:0;left:0;right:0;height:90px;background-color: #fff;box-shadow: 0 2px 4px rgba(0,0,0,0.15);">
+  <div style="height: 100%;">
+    <div>
       <van-nav-bar title="队伍">
         <template #right>
           <van-icon @click="addTeam" name="add" size="18"/>
         </template>
       </van-nav-bar>
-      <van-tabs v-model:active="active" swipeable sticky style="z-index: 9999;">
+      <van-tabs v-model:active="active" swipeable sticky  style="z-index: 9999;">
         <van-tab v-for="(item,index) in tabOptions" :title="item">
         </van-tab>
       </van-tabs>
     </div>
-
     <div class="position-box">
       <div v-if="active === 0">
         <scroll-list @refresh="listTeam">
@@ -33,8 +32,6 @@
         </scroll-list>
       </div>
     </div>
-
-
   </div>
 
 
@@ -47,7 +44,7 @@ import TeamCard from "@/views/team/components/TeamCard.vue";
 
 const router = useRouter ()
 const active = ref ( 0 )
-const tabOptions = reactive ( ['我加入的', '我创建的', '全部' ] )
+const tabOptions = reactive ( ['我创建的', ' 我加入的', '全部'] )
 const allTeamList = ref<any> ( [] )
 const addTeam = () => {
   router.push ( '/team/add' )

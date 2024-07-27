@@ -165,7 +165,7 @@ onUnmounted ( () => {
                       :pullDistance="props.offset"
                       :disable-refresh="refreshDisabled"
     >
-      <div  ref="listRef">
+      <div class="light-wrapper" ref="listRef">
         <van-list
           v-bind="$attrs"
           v-model:loading="loading"
@@ -185,6 +185,9 @@ onUnmounted ( () => {
 
 <style scoped lang="less">
 
+.light-wrapper{
+  padding-bottom: 50px;
 
+}
 
 </style>

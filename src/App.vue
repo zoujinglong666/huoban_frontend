@@ -15,6 +15,7 @@
 import { darken, lighten } from '@/utils'
 import { useRouteStore } from '@/store/modules/route'
 import { useDesignSetting } from '@/hooks/setting/useDesignSetting'
+import {useDesignSettingStore} from "@/store/modules/designSetting";
 
 const routeStore = useRouteStore()
 const { getDarkMode, getAppTheme, getIsPageAnimate, getPageAnimateType } = useDesignSetting()
@@ -71,34 +72,8 @@ const getTransitionName = computed(() => {
   return unref(getIsPageAnimate) ? unref(getPageAnimateType) : undefined
 })
 
-function formatDate(dateStr, format="") {
-  const date = new Date(dateStr);
-  if (!format) format = 'yyyy-MM-dd hh:mm:ss';
-  let map = {
-    "M+": date.getMonth() + 1, //月份
-    "d+": date.getDate(),
-    "h+": date.getHours(),
-    "m+": date.getMinutes(),
-    "s+": date.getSeconds(),
-    "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-    "S": date.getMilliseconds() //毫秒
-  };
-  if (/(y+)/.test(format)) {
-    format = format.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-  }
-  for (var k in map) {
-    if (new RegExp("(" + k + ")").test(format)) {
-      format = format.replace(RegExp.$1, (RegExp.$1.length == 1) ? (map[k]) : (("00" + map[k]).substr(("" + map[k]).length)));
-    }
-  }
-  return format;
-}
-
-
-
-console.log (formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss'))
-
-
+const designStore = useDesignSettingStore()
+designStore.setDarkMode('light')
 
 </script>
 

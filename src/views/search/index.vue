@@ -13,7 +13,7 @@
     </form>
 
     <div style="padding: 16px 0">
-      <van-grid :border="false">
+      <van-grid >
         <van-grid-item v-for="(item,index) in activeIds">
           <van-tag closeable size="large" type="primary" @close="handleCloseTag(item,index)">
             {{ item }}
@@ -62,6 +62,19 @@ const items = [
     children: [
       {text: 'java', id: 'java'},
       {text: 'vue', id: 'vue'},
+      {text: 'react', id: 'react'},
+      {text: 'node', id: 'node'},
+
+      {text: 'python', id: 'python'},
+      {text: 'go', id: 'go'},
+      {text: 'c++', id: 'c++'},
+      {text: 'php', id: 'php'},
+
+      {text: 'html', id: 'html'},
+      {text: 'css', id: 'css'},
+      {text: 'javascript', id: 'javascript'},
+      {text: 'typescript', id: 'typescript'},
+
     ],
   }]
 
@@ -120,7 +133,7 @@ async function handleSearch() {
   }
 
 
-  router.push ( {
+  await router.push ( {
     path: "/search/result",
     query: {
       tagList: activeIds.value

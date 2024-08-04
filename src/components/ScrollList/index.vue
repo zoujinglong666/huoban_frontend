@@ -2,7 +2,9 @@
 <script setup lang="ts">
 import {nextTick, onMounted, onUnmounted, ref} from 'vue';
 import Loading from "@/components/ScrollList/components/Loading.vue";
-
+import {isFunction, uniqBy} from "lodash-es";
+import {ResultEnum} from "@/enums/httpEnum";
+import {watch} from "vue";
 const scrollRef = ref<HTMLElement | null> ( null );
 const bodyClass = ref<string> ( '' );
 const isPullingDown = ref ( false );
@@ -17,7 +19,7 @@ const loadLock = ref ( false );
 const isLoading = ref ( false );
 const startTime = ref ( 0 );
 const endTime = ref ( 0 );
-const DISTANCE_Y_MIN_LIMIT = 120;
+const DISTANCE_Y_MIN_LIMIT = 80;
 const DISTANCE_Y_MAX_LIMIT = 150;
 const DEG_LIMIT = 40;
 const SPEED_THRESHOLD = 0.5; // 滑动速度阈值
@@ -157,9 +159,7 @@ const removeTouchEvent = () => {
   }
 };
 
-onMounted ( () => {
-  nextTick ( addTouchEvent );
-} );
+
 
 onUnmounted ( () => {
   removeTouchEvent ();
@@ -183,35 +183,131 @@ const observer = new IntersectionObserver (
   }
 );
 
-onMounted ( () => {
-  moreRef.value && observer.observe ( moreRef.value );
+interface DataListPropsType {
+
+  data?: any[];
+  // 自定义api
+  api?: (params?: {}) => Promise<any>;
+  pageSize?: number,
+  params?: NonNullable<unknown>;
+  offset?: number
+  rowKey?: string,
+  refreshing?: boolean,
+
+}
+
+const props = withDefaults ( defineProps<DataListPropsType> (), {
+  rowKey: "id",
+  pageSize: 5,
+  offset: 100,
 } );
 
+const DEFAULT_PAGE_SIZE = 10
+const list = ref ( [] );
+const loading = ref ( false );
+const finished = ref ( false );
+const refreshing = ref ( false );
+const pageNum = ref ( 1 );
+const pages = ref ( 1 );
+const total = ref ( 0 )
 const pullUp = () => {
   if ( !hasMore.value || moreLock.value ) {
     return;
   }
   loadData ();
 };
-const emit = defineEmits ( ['loadMore', 'refresh'] );
+const isLastPage = computed ( () => {
+  return pageNum.value >= Number ( pages.value )
+} )
+
+watch (
+  () => isLastPage.value,
+  (newVal) => {
+    finished.value = newVal
+  },
+  {deep: true, immediate: true}
+);
+const emit = defineEmits ( ['loadMore', 'refresh','update:refreshing','update:list'] );
 const loadData = () => {
   emit ( 'loadMore' );
+  if ( finished.value ) {
+    return
+  }
+  if ( pageNum.value < Number ( pages.value ) ) {
+    pageNum.value += 1;
+    getData ( pageNum.value )
+  }
 };
+
+
+onMounted ( () => {
+  moreRef.value && observer.observe ( moreRef.value );
+  nextTick ( addTouchEvent );
+  fetchData ();
+} );
+const fetchData = async () => {
+  await getData ( 1 );
+}
+
+
+const getData = async (pageNum: number) => {
+  const api = props?.api;
+  if ( !api || !isFunction ( api ) ) {
+    return;
+  }
+  try {
+    loading.value = true;
+    const params = {
+      "pageNum": pageNum,
+      "pageSize": props.pageSize || 10,
+      ...(props.params || {}),
+
+    };
+    const {data, code} = await api ( params );
+    if ( code == ResultEnum.SUCCESS ) {
+      pages.value = Number ( data.pages );
+      total.value = Number ( data.total );
+      const pageData = data.records as any[];
+      if ( pages.value === 1 || data.total <= props.pageSize ) {
+        finished.value = true
+        list.value = pageData || []
+        emit( 'update:list', pageData )
+        return
+      } else {
+        list.value = uniqBy ( (list.value ?? []).concat ( pageData ), props.rowKey );
+        emit ( 'update:list', list.value )
+      }
+    }
+  } catch (e) {
+    console.log ( e )
+  } finally {
+    refreshing.value = false;
+    loading.value = false;
+  }
+}
+onMounted(() => {
+  nextTick(() => {
+    if (moreRef.value) {
+      observer.observe(moreRef.value);
+    }
+  });
+});
+
 
 </script>
 <template>
   <div class="data-scroll-list" ref="scrollRef">
     <div class="pull-down_text" v-if="isPullingDown && distanceY > 5">
-      {{ distanceY > 10 ? '松开刷新' : ' 正在下拉刷新...' }}
+      {{ isPullingDown && distanceY > DISTANCE_Y_MIN_LIMIT ? '松开刷新' : ' 正在下拉刷新...' }}
     </div>
     <div class="pull-down_loading" v-if="isRefreshing">
       <Loading></Loading>
     </div>
     <slot></slot>
-<!--    <div class="pull-up">-->
-<!--      <div ref="moreRef" class="pull-up_loading"></div>-->
-<!--      <div ref="nothing" class="pull-up_nothing" v-if="!hasMore">没有更多了</div>-->
-<!--    </div>-->
+    <div class="pull-up">
+      <div ref="moreRef" class="pull-up_loading" v-show="!finished"></div>
+      <div ref="nothing" class="pull-up_nothing" v-show="finished">没有更多了</div>
+    </div>
   </div>
 </template>
 
@@ -220,13 +316,14 @@ const loadData = () => {
 .data-scroll-list {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  padding-bottom: 60px;
 
   .pull-down_text {
     position: relative;
     height: 20px;
     text-align: center;
     margin-bottom: 20px;
+    color: #717171;
   }
 
   .pull-down_loading {
@@ -244,7 +341,7 @@ const loadData = () => {
     display: flex;
     align-items: center;
     justify-content: center;
-
+    color: #717171;
     &_loading {
       width: 16px;
       height: 16px;

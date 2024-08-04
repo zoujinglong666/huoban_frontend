@@ -8,11 +8,10 @@
         @click="handelClick"
       />
     </div>
-    <DataList v-model:list="recommendedUserList" :api="recommendedUsers" @scroll="onScrollBody"
-              :list-style="{padding:  '0 10px'}">
+    <ScrollList v-model:list="recommendedUserList" :api="recommendedUsers" @scroll="onScrollBody">
       <user-card :user-info="{...item,index}" v-for="(item,index) in recommendedUserList" :key="item.id"
       />
-    </DataList>
+    </ScrollList>
   </div>
 </template>
 

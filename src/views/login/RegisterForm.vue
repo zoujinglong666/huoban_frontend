@@ -71,10 +71,12 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInstance } from 'vant'
+import { showSuccessToast, type FormInstance } from 'vant'
 
 import { LoginStateEnum, useFormRules, useLoginState } from './useLogin'
 import {userRegistrationApi} from "@/api/modules/login";
+import { ResultEnum } from '@/enums/httpEnum';
+import router from '@/router';
 
 const { handleBackLogin, getLoginState } = useLoginState()
 const getShow = computed(() => unref(getLoginState) === LoginStateEnum.REGISTER)
@@ -105,6 +107,11 @@ function handleRegister() {
         }
 
         const res=await userRegistrationApi(params)
+
+        if(res.code==ResultEnum.SUCCESS&&res.data){
+          showSuccessToast("注册成功");
+          handleBackLogin()
+        }
       }
       finally {
         loading.value = false

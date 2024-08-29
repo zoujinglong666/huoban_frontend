@@ -29,7 +29,10 @@ const getSearchTagList = async () => {
 onMounted ( () => {
   getSearchTagList ()
 } )
-
+const router = useRouter ()
+const back = () => {
+  router.go(-1)
+}
 
 </script>
 
@@ -42,6 +45,9 @@ onMounted ( () => {
       <user-card :user-info="item" v-for="(item) in userList" :key="item.id"
 
       />
+      <van-empty description="暂无数据" image="search">
+        <van-button round type="primary" @click="back" class="back-button">返回</van-button>
+      </van-empty>
     </page-main>
   </div>
 
@@ -49,5 +55,8 @@ onMounted ( () => {
 </template>
 
 <style scoped lang="less">
-
+.back-button {
+  width: 160px;
+  height: 40px;
+}
 </style>

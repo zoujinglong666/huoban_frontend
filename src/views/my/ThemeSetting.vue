@@ -58,27 +58,16 @@
 </template>
 
 <script setup lang="ts">
-import { useDark, useToggle } from '@vueuse/core'
 import NavBar from './components/NavBar.vue'
 import { useDesignSettingStore } from '@/store/modules/designSetting'
 import { animates as animateOptions } from '@/settings/animateSetting'
 
 const designStore = useDesignSettingStore()
 
-const isDark = useDark({
-  valueDark: 'dark',
-  valueLight: 'light',
-})
 
-const toggleDark = useToggle(isDark)
 
-const getDarkMode = computed({
-  get: () => isDark.value,
-  set: () => {
-    toggleDark()
-    designStore.setDarkMode(isDark.value ? 'dark' : 'light')
-  },
-})
+
+
 
 function togTheme(color: string) {
   designStore.appTheme = color

@@ -16,7 +16,7 @@ export const useDesignSettingStore = defineStore({
   }),
   getters: {
     getDarkMode(): 'light' | 'dark' {
-      return this.darkMode
+      return 'light'
     },
     getAppTheme(): string {
       return this.appTheme
@@ -32,7 +32,7 @@ export const useDesignSettingStore = defineStore({
     },
   },
   actions: {
-    setDarkMode(mode: 'light' | 'dark'): void {
+    setDarkModesetDarkMode(mode: 'light' | 'dark'): void {
       this.darkMode = mode
     },
     setPageAnimateType(type: string): void {

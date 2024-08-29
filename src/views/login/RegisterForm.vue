@@ -96,10 +96,17 @@ const switchPassType = ref(true)
 const switchConfirmPassType = ref(true)
 
 function handleRegister() {
+  if(formData.userPassword!==formData.checkPassword){
+    return showSuccessToast("两次密码输入不一致")
+  }
+
+
+
   formRef.value
     ?.validate()
     .then(async () => {
       try {
+
         loading.value = true
 
         const params={

@@ -181,7 +181,7 @@ onMounted ( () => {
         placeholder="队伍名"
         :rules="[{ required: true, message: '请填写队伍名' }]"
       />
-      <van-field name="stepper" label="队伍人数" disabled>
+      <van-field name="stepper" label="队伍人数" >
         <template #input>
           <van-stepper v-model="addTeamForm.maxNum"/>
         </template>
@@ -239,6 +239,8 @@ onMounted ( () => {
         </van-picker-group>
       </van-popup>
       <van-number-keyboard
+        title="请输入队伍密码"
+        close-button-text="完成"
         v-model="addTeamForm.password"
         :show="showPassword"
         :maxlength="6"
@@ -246,7 +248,7 @@ onMounted ( () => {
       />
     </van-cell-group>
     <div
-      style="position: fixed;bottom: 0;left: 0;right: 0;width: 100%;gap: 10px;background-color: #fff;padding: 10px;box-sizing: border-box;z-index: 1000;">
+      style="position: fixed;bottom: 0;left: 0;right: 0;width: 100%;gap: 10px;background-color: #fff;padding: 10px;box-sizing: border-box;z-index: 1;">
       <div style="display: flex;gap: 10px;">
         <van-button v-if="isTeamOwner" round block type="primary" @click="updateTeamInfo">
           更新队伍

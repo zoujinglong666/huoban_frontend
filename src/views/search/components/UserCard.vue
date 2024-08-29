@@ -33,7 +33,7 @@ const tags=computed(()=>{
 
     <div class="user-card_right">
       <div>
-        <div>{{props.userInfo.username}}</div>
+        <div>{{props.userInfo.username||props.userInfo.userAccount}}</div>
         <div>
           <van-tag type="primary" style="margin-right: 8px" v-for="tag in tags" :key="tag">{{tag}}</van-tag>
         </div>

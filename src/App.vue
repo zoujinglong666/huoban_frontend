@@ -15,8 +15,6 @@
 import { darken, lighten } from '@/utils'
 import { useRouteStore } from '@/store/modules/route'
 import { useDesignSetting } from '@/hooks/setting/useDesignSetting'
-import {useDesignSettingStore} from "@/store/modules/designSetting";
-
 const routeStore = useRouteStore()
 const { getDarkMode, getAppTheme, getIsPageAnimate, getPageAnimateType } = useDesignSetting()
 
@@ -72,8 +70,7 @@ const getTransitionName = computed(() => {
   return unref(getIsPageAnimate) ? unref(getPageAnimateType) : undefined
 })
 
-const designStore = useDesignSettingStore()
-designStore.setDarkMode('light')
+
 
 </script>
 

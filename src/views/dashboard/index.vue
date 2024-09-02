@@ -9,7 +9,7 @@
       />
     </div>
     <ScrollList v-model:list="recommendedUserList" :api="recommendedUsers" @scroll="onScrollBody">
-      <user-card :user-info="{...item,index}" v-for="(item,index) in recommendedUserList" :key="item.id"
+      <user-card :user-info="item" v-for="(item,index) in recommendedUserList" :key="item.id"
       />
     </ScrollList>
   </div>
@@ -25,11 +25,7 @@ defineOptions ( {
   name: 'DashboardPage',
 } )
 
-const globSetting = useGlobSetting ()
-
-const {title} = globSetting
 const value = ref ( '' )
-
 const {onScrollBody, scrollRef} = useScrollCache ();
 //页面滚动
 const onPageScroll = () => {

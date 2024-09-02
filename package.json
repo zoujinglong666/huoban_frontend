@@ -38,6 +38,7 @@
     "@better-scroll/core": "^2.5.1",
     "@better-scroll/pull-down": "^2.5.1",
     "@better-scroll/pull-up": "^2.5.1",
+    "@tanstack/vue-query": "^5.53.2",
     "@types/lodash-es": "^4.17.12",
     "@unocss/reset": "^0.58.5",
     "@vueuse/core": "^10.7.0",

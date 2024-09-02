@@ -39,7 +39,7 @@ const tags=computed(()=>{
         </div>
       </div>
       <div>
-        <van-button type="primary" size="mini" plain p-6>联系我</van-button>
+        <van-button type="primary" size="mini" plain >联系我</van-button>
       </div>
     </div>
 

@@ -1,11 +1,11 @@
 <template>
   <vanConfigProvider :theme="getDarkMode" :theme-vars="getThemeVars()">
     <routerView v-slot="{ Component }">
-      <div class="absolute bottom-0 top-0 w-full h-screen overflow-hidden">
+      <div class="bottom-0 top-0 w-full h-screen overflow-x-hidden overflow-y-auto">
           <keep-alive v-if="keepAliveComponents" :include="keepAliveComponents">
             <component :is="Component" />
           </keep-alive>
-        <component v-else></component>
+          <component v-else></component>
       </div>
     </routerView>
   </vanConfigProvider>
@@ -66,9 +66,6 @@ function getThemeVars() {
 
 }
 
-const getTransitionName = computed(() => {
-  return unref(getIsPageAnimate) ? unref(getPageAnimateType) : undefined
-})
 
 
 

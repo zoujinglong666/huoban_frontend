@@ -117,6 +117,5 @@ export function useECharts(
     setOptions,
     resize,
     echarts,
-    getInstance,
   }
 }

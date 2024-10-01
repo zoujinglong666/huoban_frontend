@@ -1,7 +1,6 @@
 <template>
   <div>
     <NavBar/>
-    <van-cell-group inset>
       <van-field
         v-model="passwordRequest.oldPassword"
         type="password"
@@ -23,7 +22,6 @@
         placeholder="确认新密码"
         :rules="[{ required: true, message: '请再次填写新密码' }]"
       />
-    </van-cell-group>
     <div style="margin: 16px;">
       <van-button round block type="primary" @click="onSubmit()">
         提交

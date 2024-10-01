@@ -72,7 +72,9 @@ function formatExpirationTime(date) {
   if (date && date[0] && date[1] && date[0].selectedValues && date[1].selectedValues) {
     const specificDate = date[0].selectedValues.join('-');
     const timeStr = date[1].selectedValues.join(':');
-    const dateTimeStr = `${specificDate} ${timeStr}`;
+
+    // 创建符合 ISO 8601 格式的时间字符串
+    const dateTimeStr = `${specificDate}T${timeStr}:00Z`;
 
     // 创建 Date 对象
     const dateTime = new Date(dateTimeStr);
@@ -82,16 +84,13 @@ function formatExpirationTime(date) {
       return "Invalid date time";
     }
 
-    // 加上八个时区（8小时）
-    const eightHoursInMillis = 8 * 60 * 60 * 1000;
-    const dateTimeWithOffset = new Date(dateTime.getTime() + eightHoursInMillis);
-
     // 格式化为 ISO 8601 格式
-    const isoDateTime = dateTimeWithOffset.toISOString();
+    const isoDateTime = dateTime.toISOString();
     return isoDateTime;
   }
   return "Invalid date time";
 }
+
 
 
 
@@ -118,7 +117,6 @@ const handleStatusChange = (event: any) => {
   <NavBar>
   </NavBar>
   <van-form @submit="onSubmit">
-    <van-cell-group inset>
       <van-field
         v-model="addTeamForm.name"
         name="队伍名"
@@ -191,7 +189,6 @@ const handleStatusChange = (event: any) => {
         :maxlength="6"
         @blur="showPassword = false"
       />
-    </van-cell-group>
     <div style="margin: 16px;">
       <van-button round block type="primary" native-type="submit">
         提交

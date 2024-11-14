@@ -29,9 +29,12 @@ importers:
       '@vueuse/core':
         specifier: ^10.7.0
         version: 10.7.0(vue@3.3.13(typescript@5.3.3))
+      alova:
+        specifier: ^3.1.1
+        version: 3.1.1
       axios:
-        specifier: ^1.6.3
-        version: 1.6.3
+        specifier: 1.7.4
+        version: 1.7.4
       crypto-js:
         specifier: ^4.2.0
         version: 4.2.0
@@ -207,6 +210,9 @@ packages:
   '@aashutoshrathi/word-wrap@1.2.6':
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==}
     engines: {node: '>=0.10.0'}
+
+  '@alova/shared@1.0.7':
+    resolution: {integrity: sha512-yBCNbt+E2gOtNfx9dLXDcmjudnWrwlHJnMKFD6CLKe6KTc6G0QUFeIS/1Kn4+iBalD38nY8ckCMW98+hmjr7Bg==}
 
   '@ampproject/remapping@2.2.1':
     resolution: {integrity: sha512-lFMjJTrFL3j7L9yBxwYfCq2k6qqwHyzuUl/XBnif78PWTJYyL/dfowQHWE3sp6U6ZzqWiiIZnpTMO96zhkjwtg==}
@@ -1342,6 +1348,10 @@ packages:
   ajv@8.12.0:
     resolution: {integrity: sha512-sRu1kpcO9yLtYxBKvqfTeh9KzZEwO3STyX1HT+4CaDzC6HpTGYhIhPIzj9XuKU7KYDwnaeh5hcOwjy1QuJzBPA==}
 
+  alova@3.1.1:
+    resolution: {integrity: sha512-1LviUBEa6tNg4hVnnY0wtY7OGdzwl4uzASCTbMxXyiVkraJg3mt/e/5i0xGR6CeOkAS2hpmxDKsrE3rJEUnAKA==}
+    engines: {node: '>= 18.0.0'}
+
   ansi-escapes@6.2.0:
     resolution: {integrity: sha512-kzRaCqXnpzWs+3z5ABPQiVke+iq0KXkHo8xiWV4RPTi5Yli0l97BEQuhXV1s7+aSU/fu1kUuxgS4MsQ0fRuygw==}
     engines: {node: '>=14.16'}
@@ -1434,8 +1444,8 @@ packages:
     peerDependencies:
       postcss: ^8.1.0
 
-  axios@1.6.3:
-    resolution: {integrity: sha512-fWyNdeawGam70jXSVlKl+SUNVcL6j6W79CuSIPfi6HnDUmSCH6gyUys/HrqHeA/wU0Az41rRgean494d0Jb+ww==}
+  axios@1.7.4:
+    resolution: {integrity: sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -2384,8 +2394,8 @@ packages:
   flatted@3.2.9:
     resolution: {integrity: sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==}
 
-  follow-redirects@1.15.3:
-    resolution: {integrity: sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==}
+  follow-redirects@1.15.9:
+    resolution: {integrity: sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -3443,6 +3453,9 @@ packages:
     resolution: {integrity: sha512-ARhCpm70fzdcvNQfPoy49IaanKkTlRWF2JMzqhcJbhSFRZv7nPTvZJdcY7301IPmvW+/p0RgIWnQDLJxifsQ7g==}
     engines: {node: '>=8'}
 
+  rate-limiter-flexible@5.0.4:
+    resolution: {integrity: sha512-ftYHrIfSqWYDIJZ4yPTrgOduByAp+86gUS9iklv0JoXVM8eQCAjTnydCj1hAT4MmhmkSw86NaFEJ28m/LC1pKA==}
+
   read-pkg-up@7.0.1:
     resolution: {integrity: sha512-zK0TB7Xd6JpCLmlLmufqykGE+/TlOePD6qKClNW7hHDKFh/J7/7gCWGR7joEQEW1bKq3a3yUZSObOoWLFQ4ohg==}
     engines: {node: '>=8'}
@@ -4203,6 +4216,8 @@ packages:
 snapshots:
 
   '@aashutoshrathi/word-wrap@1.2.6': {}
+
+  '@alova/shared@1.0.7': {}
 
   '@ampproject/remapping@2.2.1':
     dependencies:
@@ -5474,6 +5489,11 @@ snapshots:
       require-from-string: 2.0.2
       uri-js: 4.4.1
 
+  alova@3.1.1:
+    dependencies:
+      '@alova/shared': 1.0.7
+      rate-limiter-flexible: 5.0.4
+
   ansi-escapes@6.2.0:
     dependencies:
       type-fest: 3.13.1
@@ -5537,9 +5557,9 @@ snapshots:
       postcss: 8.4.32
       postcss-value-parser: 4.2.0
 
-  axios@1.6.3:
+  axios@1.7.4:
     dependencies:
-      follow-redirects: 1.15.3
+      follow-redirects: 1.15.9
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -6613,7 +6633,7 @@ snapshots:
 
   flatted@3.2.9: {}
 
-  follow-redirects@1.15.3: {}
+  follow-redirects@1.15.9: {}
 
   for-in@1.0.2: {}
 
@@ -7625,6 +7645,8 @@ snapshots:
   queue-microtask@1.2.3: {}
 
   quick-lru@4.0.1: {}
+
+  rate-limiter-flexible@5.0.4: {}
 
   read-pkg-up@7.0.1:
     dependencies:

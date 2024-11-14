@@ -69,12 +69,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       __APP_INFO__: JSON.stringify(__APP_INFO__),
     },
 
-    esbuild: {
-      // 使用 esbuild 压缩 剔除 console.log
-      drop: VITE_DROP_CONSOLE ? ['debugger', 'console'] : [],
-      // minify: true, // minify: true, 等于 minify: 'esbuild',
-    },
-
     build: {
       // 设置最终构建的浏览器兼容目标
       target: 'es2015',

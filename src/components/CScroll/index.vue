@@ -3,6 +3,13 @@
     <div class="ct-scroll-content">
       <div ref="listWrapper" class="ct-scroll-list-wrapper">
         <slot>
+          <ul class="cube-scroll-list">
+            <li
+              style="height: 100px;line-height: 100px;text-align: center;"
+              v-for="(item, index) in data"
+              :key="index"
+              @click="clickItem(item)">{{item}}</li>
+          </ul>
         </slot>
       </div>
       <slot name="pullup" :pullUpLoad="pullUpLoad" :isPullUpLoad="isPullUpLoad">
